@@ -15,27 +15,27 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-    @GetMapping("allTasks")
+    @GetMapping("all-tasks")
     public ResponseEntity<List<Task>> getAllTasks() {
         return taskService.getAllTasks();
     }
 
-    @PostMapping("add")
+    @PostMapping("add-task")
     public ResponseEntity<String> addTask(@RequestBody Task task) {
         return taskService.addTask(task);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("get-task/{id}")
     public ResponseEntity<Task> getTaskById(@RequestParam("id") Integer id) {
         return taskService.getTaskById(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("update-task/{id}")
     public ResponseEntity<String> updateTask(@PathVariable("id") Integer id, @RequestBody Task task) {
-        return taskService.updateTask(id,task);
+        return taskService.updateTask(id, task);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("delete-task/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable("id") Integer id) {
         return taskService.deleteTask(id);
     }

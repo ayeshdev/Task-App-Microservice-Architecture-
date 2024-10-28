@@ -15,27 +15,27 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping("allCategories")
+    @GetMapping("all-categories")
     public ResponseEntity<List<Category>> getAllCategory(){
         return categoryService.getAllCategories();
     }
 
-    @PostMapping("add")
+    @PostMapping("add-category")
     public ResponseEntity<String> addCategory(@RequestBody Category category){
         return categoryService.addCategory(category);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("get-category/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable("id") int id){
         return categoryService.getCategoryById(id);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("delete-category/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable("id") int id){
         return categoryService.deleteCategory(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("update-category/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable("id") int id, @RequestBody Category category){
         return categoryService.updateCategory(id,category);
     }

@@ -56,12 +56,11 @@ public class TaskService {
     }
 
     public ResponseEntity<String> deleteTask(Integer id) {
-        try {
+        if (taskDao.existsById(id)) {
             taskDao.deleteById(id);
-            return new ResponseEntity<>("Deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return new ResponseEntity<>("Task Deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Task not found", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
     }
 }
