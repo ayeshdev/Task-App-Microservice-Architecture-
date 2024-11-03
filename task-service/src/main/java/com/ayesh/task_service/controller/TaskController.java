@@ -1,5 +1,6 @@
 package com.ayesh.task_service.controller;
 
+import com.ayesh.task_service.model.Category;
 import com.ayesh.task_service.model.Task;
 import com.ayesh.task_service.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,11 @@ public class TaskController {
     public ResponseEntity<String> deleteTask(@PathVariable("id") Integer id) {
         return taskService.deleteTask(id);
     }
-    
+
+    @GetMapping("all-categories")
+    public ResponseEntity<List<Category>> getAllCategories() {
+        return taskService.getAllCategories();
+    }
+
+
 }

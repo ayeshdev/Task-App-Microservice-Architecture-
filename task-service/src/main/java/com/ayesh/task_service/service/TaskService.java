@@ -1,6 +1,8 @@
 package com.ayesh.task_service.service;
 
 import com.ayesh.task_service.dao.TaskDao;
+import com.ayesh.task_service.feign.TaskInterface;
+import com.ayesh.task_service.model.Category;
 import com.ayesh.task_service.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,14 @@ public class TaskService {
 
     @Autowired
     TaskDao taskDao;
+
+    @Autowired
+    TaskInterface taskInterface;
+
+    public ResponseEntity<List<Category>> getAllCategories() {
+        return taskInterface.getAllCategory();
+    }
+
 
     public ResponseEntity<List<Task>> getAllTasks() {
         try {
