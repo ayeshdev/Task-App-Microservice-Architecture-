@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -28,11 +29,17 @@ public class TaskService {
 
     public ResponseEntity<List<Task>> getAllTasks() {
         try {
-            return new ResponseEntity<>(taskDao.findAll(), HttpStatus.OK);
+//            List<Task> tasks = taskDao.findAll();
+
+            // Sort tasks in descending order based on createdAt field
+            List<Task> tasks = taskDao.findAllByOrderByCreatedAtDesc();
+// Debug: Print sorted list to verify order
+            tasks.forEach(task -> System.out.println(task.getCreatedAt()));
+            return new ResponseEntity<>(tasks, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity<String> addTask(Task task) {
@@ -73,4 +80,18 @@ public class TaskService {
             return new ResponseEntity<>("Task not found", HttpStatus.NOT_FOUND);
         }
     }
+
+    public ResponseEntity<List<Task>> searchTasks(String title) {
+        List<Task> tasks;
+
+        if (title != null && !title.isEmpty()) {
+            tasks = taskDao.findByTitleContainingIgnoreCaseOrderByCreatedAtDesc(title);
+        } else {
+            tasks = taskDao.findAllByOrderByCreatedAtDesc();
+        }
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+
 }

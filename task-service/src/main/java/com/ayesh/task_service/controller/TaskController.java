@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("task")
 public class TaskController {
 
@@ -46,5 +47,9 @@ public class TaskController {
         return taskService.getAllCategories();
     }
 
+    @GetMapping("search")
+    public ResponseEntity<List<Task>> searchTasks(@RequestParam(required = false) String title) {
+        return taskService.searchTasks(title);
+    }
 
 }
